@@ -24,7 +24,7 @@ for photo in photos:
 	except:
 		continue
 	try:
-		tags = [ tag.firstChild.nodeValue for tag in photo.getElementsByTagName("tag")]
+		tags = [ tag for tag in photo.getElementsByTagName("tag")]
 	except:
 		continue
 	data[title] = [time,lattitude,longitude,tags]
