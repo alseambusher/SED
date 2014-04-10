@@ -22,13 +22,11 @@ for photo in photos:
 		longitude = location.getAttributeNode("longitude").nodeValue
 
 	except:
-		lattitude = -1
-		longitude = -1
+		continue
 	try:
 		tags = [ tag.firstChild.data for tag in photo.getElementsByTagName("tag")]
 	except:
-		tags = []
-	print time
+		continue
 	data[title] = [time,lattitude,longitude,tags]
 	#sift
 json.dump(data,file("features.json","w"))	
