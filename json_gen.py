@@ -24,7 +24,10 @@ for photo in photos:
 	except:
 		lattitude = -1
 		longitude = -1
-	tags = [ tag.firstChild.data for tag in photo.getElementsByTagName("tag")]
+	try:
+		tags = [ tag.firstChild.data for tag in photo.getElementsByTagName("tag")]
+	except:
+		tags = []
 	print time
 	data[title] = [time,lattitude,longitude,tags]
 	#sift
