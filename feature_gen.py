@@ -42,7 +42,7 @@ for photo in photos:
 		lattitude = -1
 		longitude = -1
 	try:
-		tags = [ tag.firstChild.data in for tag in photo.getElementsByTagName("tag") ]
+		tags = [ tag.firstChild.data for tag in photo.getElementsByTagName("tag") ]
 	except:
 		continue
 
