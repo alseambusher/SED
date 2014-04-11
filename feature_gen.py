@@ -11,12 +11,12 @@ data = {"signal":{},"test":{}}
 xml = dom.parse(sys.argv[1])
 os.chdir(config.res)
 soccer100= open("soccer100.txt","r").readlines()[0].split(",")
-tech100= [] = open("tech100.txt","r").readlines()[0].split(",")
-indi100= [] = open("indi100.txt","r").readlines()[0].split(",")
+tech100= open("tech100.txt","r").readlines()[0].split(",")
+indi100= open("indi100.txt","r").readlines()[0].split(",")
 
 soccer1000= open("soccer1000.txt","r").readlines()[0].split(",")
-tech1000= [] = open("tech1000.txt","r").readlines()[0].split(",")
-indi1000= [] = open("indi1000.txt","r").readlines()[0].split(",")
+tech1000= open("tech1000.txt","r").readlines()[0].split(",")
+indi1000= open("indi1000.txt","r").readlines()[0].split(",")
 
 detector = cv2.FeatureDetector_create("SIFT")
 descriptor = cv2.DescriptorExtractor_create("SIFT")

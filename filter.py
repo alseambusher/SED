@@ -33,3 +33,7 @@ indi1000_file=open("indi1000.txt","w")
 soccer100_file.write(soccer100)
 tech100_file.write(tech100)
 indi100_file.write(indi100)
+
+soccer1000_file.write(soccer1000)
+tech1000_file.write(tech1000)
+indi1000_file.write(indi1000)
