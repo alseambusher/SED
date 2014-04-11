@@ -22,14 +22,6 @@ soccer1000 = get_array(soccer_array,1000)
 tech1000 = get_array(tech_array,1000)
 indi1000 = get_array(indi_array,1000)
 
-#soccer100 = ",".join([filter(lambda x: x in soccer_array, sublist) for sublist in all_array][:100])
-#tech100 = ",".join([filter(lambda x: x in tech_array, sublist) for sublist in all_array][:100])
-#indi100 = ",".join([filter(lambda x: x in indi_array, sublist) for sublist in all_array][:100])
-
-#soccer1000 = ",".join([filter(lambda x: x in soccer_array, sublist) for sublist in all_array][:1000])
-#tech1000 = ",".join([filter(lambda x: x in tech_array, sublist) for sublist in all_array][:1000])
-#indi1000 = ",".join([filter(lambda x: x in indi_array, sublist) for sublist in all_array][:1000])
-
 soccer100_file=open("soccer100.txt","w")
 tech100_file=open("tech100.txt","w")
 indi100_file=open("indi100.txt","w")
