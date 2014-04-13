@@ -5,6 +5,8 @@ import os
 import config
 import cv2
 import numpy as np
+from scipy.cluster.vq import *
+
 #from scipy.spatial.distance import cosine
 data = {"signal":{},"test":{}}
 
@@ -21,9 +23,15 @@ indi1000= open("indi1000.txt","r").readlines()[0].split(",")
 detector = cv2.FeatureDetector_create("SIFT")
 descriptor = cv2.DescriptorExtractor_create("SIFT")
 
+titles = []
+# this holds number of keypoints for a given title
+kp_nums = []
+#holds sift kp descriptors
+sift_kp_desc=[]
 photos = xml.getElementsByTagName("photo")
 for photo in photos:
 	title = photo.getAttributeNode("id").nodeValue
+	titles.append(title)
 	if title in soccer100 or soccer1000:
 		_class=1
 	elif title in tech100 or tech1000:
@@ -47,19 +55,27 @@ for photo in photos:
 		continue
 
 	img = cv2.imread("photos/"+title)
-	template = cv2.imread("photos/"+title)
-
 	skp = detector.detect(img)
 	skp, sd = descriptor.compute(img, skp)
-
-	tkp = detector.detect(template)
-	tkp, td = descriptor.compute(template, tkp)
-	#print sd,len(sd),len(sd[0])
-	#print cosine(sd,td)
+	for d in sd:
+		sift_kp_desc.append(d)
+	
+	kp_nums.append(len(sd))
 
 	if title in soccer100 or tech100 or indi100:
-		data["signal"][title] = [time,lattitude,longitude,tags,sd,_class]
+		data["signal"][title] = [time,lattitude,longitude,tags,_class]
 	else:
-		data["test"][title] = [time,lattitude,longitude,tags,sd,_class]
-	#sift
-json.dump(data,file("features.json","w"))	
+		data["test"][title] = [time,lattitude,longitude,tags,_class]
+
+# split into 20 clusters
+res,idx = kmeans2(numpy.array(sift_kp_desc),config.SIFT_CLUSTER_SIZE)
+kp_desc_index=0
+for index in range(0,len(titles)):
+	kp_num = kp_nums[index]
+	clusters = idx[kp_desc_index:kp_desc_index+kp_num]
+	kp_desc_index+ = kp_num
+	if title in soccer100 or tech100 or indi100:
+		data["signal"][title].append(clusters)
+	else:
+		data["test"][title].append(clusters)
+json.dump(data,file("features.json","w"))
