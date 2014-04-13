@@ -26,21 +26,21 @@ titles = []
 kp_nums = []
 #holds sift kp descriptors
 sift_kp_desc=[]
-for photo in data["signal"].iterkeys()+data["test"].iterkeys():
-	try:
-		title=data["signal"][photo][0]
-	except:
-		title=data["test"][photo][0]
-	titles.append(title)
-
-	img = cv2.imread("photos/"+title+".jpg")
-	skp = detector.detect(img)
-	skp, sd = descriptor.compute(img, skp)
-	for d in sd:
-		sift_kp_desc.append(d)
+def compute_sift(type):
+	for photo in data[type].iterkeys():
+		title=data[type][photo][0]
+		titles.append(title)
 	
-	kp_nums.append(len(sd))
+		img = cv2.imread("photos/"+title+".jpg")
+		skp = detector.detect(img)
+		skp, sd = descriptor.compute(img, skp)
+		for d in sd:
+			sift_kp_desc.append(d)
+	
+		kp_nums.append(len(sd))
 
+compute_sift("signal")
+compute_sift("test")
 # split into 20 clusters
 res,idx = kmeans2(numpy.array(sift_kp_desc),config.SIFT_CLUSTER_SIZE)
 kp_desc_index=0
