@@ -27,7 +27,10 @@ kp_nums = []
 #holds sift kp descriptors
 sift_kp_desc=[]
 for photo in data.iterkeys():
-	title=data[photo][0]
+	try:
+		title=data["signal"][photo][0]
+	except:
+		title=data["test"][photo][0]
 	titles.append(title)
 
 	img = cv2.imread("photos/"+title+".jpg")
