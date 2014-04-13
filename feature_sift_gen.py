@@ -17,8 +17,7 @@ soccer1000= open("soccer1000.txt","r").readlines()[0].split(",")
 tech1000= open("tech1000.txt","r").readlines()[0].split(",")
 indi1000= open("indi1000.txt","r").readlines()[0].split(",")
 
-detector = cv2.FeatureDetector_create("SIFT")
-descriptor = cv2.DescriptorExtractor_create("SIFT")
+detector = cv2.SIFT()
 
 data = json.load(open("features.json","r"))
 titles = []
@@ -28,12 +27,12 @@ kp_nums = []
 sift_kp_desc=[]
 def compute_sift(type):
 	for photo in data[type].iterkeys():
-		title=data[type][photo][0]
+		title=photo
 		titles.append(title)
 	
 		img = cv2.imread("photos/"+title+".jpg")
 		skp = detector.detect(img)
-		skp, sd = descriptor.compute(img, skp)
+		skp, sd = detector.compute(img, skp)
 		for d in sd:
 			sift_kp_desc.append(d)
 	
