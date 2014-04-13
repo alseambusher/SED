@@ -8,9 +8,6 @@ import numpy as np
 from scipy.cluster.vq import *
 
 #from scipy.spatial.distance import cosine
-data = {"signal":{},"test":{}}
-
-xml = dom.parse(sys.argv[1])
 os.chdir(config.res)
 soccer100= open("soccer100.txt","r").readlines()[0].split(",")
 tech100= open("tech100.txt","r").readlines()[0].split(",")
@@ -23,14 +20,14 @@ indi1000= open("indi1000.txt","r").readlines()[0].split(",")
 detector = cv2.FeatureDetector_create("SIFT")
 descriptor = cv2.DescriptorExtractor_create("SIFT")
 
-data = json.load("features.json")
+data = json.load(open("features.json","r"))
 titles = []
 # this holds number of keypoints for a given title
 kp_nums = []
 #holds sift kp descriptors
 sift_kp_desc=[]
 for photo in data.iterkeys():
-	title = photo.getAttributeNode("id").nodeValue
+	title=data[photo][0]
 	titles.append(title)
 
 	img = cv2.imread("photos/"+title+".jpg")

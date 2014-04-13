@@ -23,7 +23,6 @@ indi1000= open("indi1000.txt","r").readlines()[0].split(",")
 photos = xml.getElementsByTagName("photo")
 for photo in photos:
 	title = photo.getAttributeNode("id").nodeValue
-	titles.append(title)
 	if title in soccer100 or soccer1000:
 		_class=1
 	elif title in tech100 or tech1000:
