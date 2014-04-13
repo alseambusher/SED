@@ -4,6 +4,7 @@ import json
 import os
 import config
 import datetime
+from scipy.spatial.distance import cosine
 
 xml = dom.parse(sys.argv[1])
 os.chdir(config.res)
@@ -23,11 +24,8 @@ for feature1 in features["signal"].iterkeys():
 		time1 = datetime.datetime.strptime(features[feature1][0], "%Y-%m-%d %H:%M:%S.%f")
 		time2 = datetime.datetime.strptime(features[feature2][0], "%Y-%m-%d %H:%M:%S.%f")
 		time = abs((time1-time2).total_seconds())
+		location = None
+		tags_dist = None
+		sift = consine(features[feature1][5],features[feature2][5])
 		is_same_class = 1 if features[feature1][4] == features[feature2][4] else 0
-		data_signal.append(([time],is_same_class))
-
-		try:
-			data["signal"][feature1][feature2] = [time]
-		except:
-			data["signal"][feature1] = {}
-			data["signal"][feature1][feature2] = [time]
+		data_signal.append(([time,location,tags_dist,sift],is_same_class))
