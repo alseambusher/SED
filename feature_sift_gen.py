@@ -41,14 +41,14 @@ def compute_sift(type):
 compute_sift("signal")
 compute_sift("test")
 # split into 20 clusters
-res,idx = kmeans2(numpy.array(sift_kp_desc),config.SIFT_CLUSTER_SIZE)
+res,idx = kmeans2(np.array(sift_kp_desc),config.SIFT_CLUSTER_SIZE)
 kp_desc_index=0
 for index in range(0,len(titles)):
 	kp_num = kp_nums[index]
 	clusters = idx[kp_desc_index:kp_desc_index+kp_num]
 	kp_desc_index+= kp_num
-	if title in soccer100 or tech100 or indi100:
-		data["signal"][title].append(clusters)
+	if title in soccer100+tech100+indi100:
+		data["signal"][titles[index]].append(clusters)
 	else:
-		data["test"][title].append(clusters)
+		data["test"][titles[index]].append(clusters)
 json.dump(data,file("features.json","w"))

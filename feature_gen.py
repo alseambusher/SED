@@ -23,11 +23,11 @@ indi1000= open("indi1000.txt","r").readlines()[0].split(",")
 photos = xml.getElementsByTagName("photo")
 for photo in photos:
 	title = photo.getAttributeNode("id").nodeValue
-	if title in soccer100 or soccer1000:
+	if title in soccer100+soccer1000:
 		_class=1
-	elif title in tech100 or tech1000:
+	elif title in tech100+tech1000:
 		_class=2
-	elif title in indi100 or indi1000:
+	elif title in indi100+indi1000:
 		_class=3
 	else:
 		continue
@@ -45,7 +45,7 @@ for photo in photos:
 	except:
 		continue
 
-	if title in soccer100 or tech100 or indi100:
+	if title in soccer100+tech100+indi100:
 		data["signal"][title] = [time,lattitude,longitude,tags,_class]
 	else:
 		data["test"][title] = [time,lattitude,longitude,tags,_class]
