@@ -26,7 +26,7 @@ titles = []
 kp_nums = []
 #holds sift kp descriptors
 sift_kp_desc=[]
-for photo in data.iterkeys():
+for photo in data["signal"].iterkeys()+data["test"].iterkeys():
 	try:
 		title=data["signal"][photo][0]
 	except:
