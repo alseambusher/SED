@@ -3,6 +3,7 @@ import os
 import config
 import  numpy as np
 from scipy.cluster.vq import *
+import threading
 
 os.chdir(config.res)
 
@@ -12,11 +13,22 @@ signal_ids = features["signal"].keys()
 ids = [ item[0][0] for item in predicted ]
 #initialize array
 vectors = [[0]*len(signal_ids)]*len(predicted)
+a=0
+def gen_vector(begin,end):
+	for item in predicted[begin:end]:
+		signal_index = signal_ids.index(item[0][1])
+		id_index = ids.index(item[0][0])
+		vectors[id_index][signal_index] = item[1]
+start=0
+num_threads=50
+block_size=len(predicted)/num_threads
+for i in range(0,num_threads):
+	thread = threading.Thread(target=gen_vector,args=(start,start+block_size))
+	thread.start()
+	start+=block_size
 
-for item in predicted:
-	signal_index = signal_ids.index(item[0][1])
-	id_index = ids.index(item[0][0])
-	vectors[id_index][signal_index] = item[1]
+print "vectors generated"
+
 res,idx = kmeans2(np.array(vectors),3)
 idx = list(idx)
 
