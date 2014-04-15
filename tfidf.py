@@ -16,7 +16,7 @@ def get_idf(type):
 			except:
 				frequency[tag]=1
 	D = len(features[type])
-	for i in frequency.iterkeys():
+	for tag in frequency.iterkeys():
 		tfidf[type][tag] = math.log(0.5+D/frequency[tag])
 		
 
