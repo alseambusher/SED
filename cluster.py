@@ -18,7 +18,7 @@ vectors = []
 a=0
 for id_index in range(0,len(ids)):
 	vector = []
-	for item in predicted[id_index*len(ids):(id_index+1)*len(ids)-1]:
+	for item in predicted[id_index*(len(ids)-1):(id_index+1)*(len(ids)-1)-1]:
 		vector.append(item[1])
 	vector.insert(id_index,1)
 	vectors.append(vector)
