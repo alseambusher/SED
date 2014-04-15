@@ -10,14 +10,6 @@ from sklearn.svm import SVC
 import  numpy as np
 
 os.chdir(config.res)
-soccer100= open("soccer100.txt","r").readlines()[0].split(",")
-tech100=open("tech100.txt","r").readlines()[0].split(",")
-indi100=open("indi100.txt","r").readlines()[0].split(",")
-
-soccer1000= open("soccer1000.txt","r").readlines()[0].split(",")
-tech1000=open("tech1000.txt","r").readlines()[0].split(",")
-indi1000=open("indi1000.txt","r").readlines()[0].split(",")
-
 features = json.load(open("features.json","r"))
 tfidf = json.load(open("tfidf.json","r"))
 
@@ -93,7 +85,7 @@ def compute_distance(data,features1,features2,type):
 data_signal=[]
 data_test=[]
 compute_distance(data_signal,features["signal"],features["signal"],"signal")
-compute_distance(data_test,features["test"],features["signal"],"test")
+compute_distance(data_test,features["test"],features["test"],"test")
 print "distance complete"
 
 # svm
