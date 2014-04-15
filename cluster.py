@@ -32,6 +32,6 @@ idx = list(kmeans.fit(vectors).labels_)
 
 result = {}
 for id_index in range(0,len(ids)):
-	result[ids[id_index]] = idx[id_index]
+	result[ids[id_index]] = int(idx[id_index])
 
 json.dump(result,open("results.json","w"))
