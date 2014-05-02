@@ -2,3 +2,5 @@
 *.swp
 *.pyc
 build
+res_gen.py
+copy

@@ -5,7 +5,7 @@ import os
 import config
 import cv2
 import numpy as np
-from sklearn.metrics.cluster import normalized_mutual_info_score as nmi
+from sklearn.metrics import mutual_info_score as nmi
 import random
 
 #from scipy.spatial.distance import cosine
@@ -21,19 +21,37 @@ indi1000= open("indi1000.txt","r").readlines()[0].split(",")
 
 data = json.load(open("results.json","r"))
 data_predicted = []
-data_actual = [[],[],[],[],[],[]]
-combos = [(0,1,2),(0,2,1),(1,0,2),(1,2,0),(2,0,1),(2,1,0)]
+data_actual = []
+#combos = [(0,1,2),(0,2,1),(1,0,2),(1,2,0),(2,0,1),(2,1,0)]
+match = 0
+matched = [0,0,0]
+wrong = [0,0,0]
 
 for id in data.iterkeys():
 	data_predicted.append(data[id])
-	for i in range(0,6):
-		if id in soccer1000:
-			data_actual[i].append(combos[i][0])
-		elif id in tech1000:
-			data_actual[i].append(combos[i][1])
+	if id in soccer1000:
+		data_actual.append(0)
+		if data[id] == 0:
+			match+=1
+			matched[0]+=1
 		else:
-			data_actual[i].append(combos[i][2])
-test=[random.randrange(0,3)  for x in range(0,2635) ]
-print nmi(data_predicted,test)
-for i in range(0,6):
-	print nmi(data_predicted,data_actual[i])
+			wrong[0]+=1
+	elif id in tech1000:
+		data_actual.append(2)
+		if data[id] == 2:
+			match+=1
+			matched[2]+=1
+		else:
+			wrong[2]+=1
+	else:
+		data_actual.append(1)
+		if data[id] == 1:
+			match+=1
+			matched[1]+=1
+		else:
+			wrong[1]+=1
+
+print match
+print matched
+print wrong
+#print nmi(data_predicted,data_actual)

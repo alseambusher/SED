@@ -21,7 +21,7 @@ def normalize(_min,_max,num):
 		exit()
 
 def sift_vector(points):
-	vector = [0]*200
+	vector = [0]*20
 	for point in points:
 		vector[point]+=1
 	return vector
